@@ -21,6 +21,8 @@ decode_term(<<107, Len:16, Chars:Len/binary, Bin/binary>>) ->
     {binary_to_list(Chars), Bin};
 decode_term(<<108, Length:32, Bin/binary>>) ->
     decode_list(Length, Bin);
+decode_term(<<109, Length:32, Data:Length/binary, Bin/binary>>) ->
+    {Data, Bin};
 decode_term(<<110, Len:8, Sign:8, IntBin:Len/binary, Bin/binary>>) ->
     Bits = 8 * Len,
     <<Int:Bits/little-integer>> = IntBin,
